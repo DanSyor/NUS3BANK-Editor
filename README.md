@@ -41,3 +41,4 @@ You may want to use NUS3BANK_Editor_troubleshooting.bat to have a better chance 
  * "I'd like to run the Python 3.5 version, how do I do that?"
   * 
 
+[Version history](blob/master/HISTORY.md)
