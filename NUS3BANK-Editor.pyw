@@ -542,7 +542,7 @@ def openidsp(l):
         plPath = os.path.join(folderName,u'tmp.m3u')
         playlist = open(plPath,u'w')
         for i in l.curselection():
-            playlist.write(songs[i] + u'\n')
+            playlist.write(songs[int(i)] + u'\n')
         playlist.close()
         openplaylist(plPath)
     else:
@@ -568,7 +568,7 @@ def exportidsp(l):
         print (u'Selection empty: nothing to export')
         return
     for i in l.curselection():
-        currentSong = songs[i]
+        currentSong = songs[int(i)]
         if os.path.isfile(currentSong):
             output = xis.decode(asksaveasfilename(defaultextension=u'.wav',initialfile=os.path.basename(currentSong)[:-5],filetypes=[(u'Wave Audio File', u'.wav'),(u'IDSP Track', u'.idsp')]))
             if output ==u"":
