@@ -21,6 +21,7 @@ Or since 2.10 you can use `NUS3BANK_Editor.bat`, that you can bind to be the def
     
 ### Troubleshooting
 Be sure to grab the latest version, for now download links are posted on the [GBATemp Thread](http://gbatemp.net/threads/easy-nus3bank-editor-with-gui.426370/) by BlueDan as BDS.
+Future releases will be available on [Github](https://github.com/DanSyor/NUS3BANK-Editor/releases). You can try downloading the zip for the master branch on the [main page for the Github project](https://github.com/DanSyor/NUS3BANK-Editor) between releases.
 
 You may want to check the latest pages in case any specific hotfix was posted.
 
