@@ -17,7 +17,7 @@ Or since 2.10 you can use `NUS3BANK_Editor.bat`, that you can bind to be the def
 
 ### Known issues:
 * Crack noise at the end of loops
-* You might have encoding problems (some error window popping up yelling at you something about UnicodeEncodeError) related to characters within the paths of files you're using. I try my best for you to avoid those but unfortunately the behaviour doesn't seem consistent from one computer to another. If you're using Python 2.7 and encounter these issues, either be careful about any potentially exotic character in the paths of your files, or consider switching to Python 3.5.
+* You might have encoding problems (some error window popping up yelling at you something about UnicodeEncodeError) related to characters within the paths of files you're using. I try my best for you to avoid those but unfortunately the behaviour doesn't seem consistent from one computer to another, making it hard for me to clearly identify what goes wrong. If you're using Python 2.7 and encounter these issues, either be careful about any potentially exotic character in the paths of your files, or consider switching to Python 3.5.
     
 ### Troubleshooting
 Be sure to grab the latest version, for now download links are posted on the [GBATemp Thread](http://gbatemp.net/threads/easy-nus3bank-editor-with-gui.426370/) by BlueDan as BDS.
