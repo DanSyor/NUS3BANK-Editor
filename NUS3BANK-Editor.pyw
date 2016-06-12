@@ -2,6 +2,16 @@
 from __future__ import absolute_import, division, print_function
 import pyLib.six as six
 import pyLib.xis as xis
+import os
+import sys
+# class NullWriter(object):
+    # def write(self, value): pass
+
+# if not (os.isatty(1) and os.isatty(2)):
+# sys.stdout = sys.stderr = open('log-'+unicode(time.strftime('%Y-%m-%d-%H-%M-%S'))+'-'+unicode(os.getpid())+'.txt', 'w')
+if sys.executable.endswith(u"pythonw.exe") or sys.executable.endswith(u"pythonw3.exe") or sys.executable.endswith(u"pythonw2.exe"):
+    # sys.stdout = sys.stderr = NullWriter()
+    sys.stdout = sys.stdout = None
 if six.PY3:
     from tkinter import *
     from tkinter.filedialog import *
@@ -16,8 +26,6 @@ else:
     import tkMessageBox
     from ConfigParser import SafeConfigParser
     print (u"Python2 imports")
-import os
-import sys
 import subprocess
 import shutil
 import glob
@@ -26,15 +34,7 @@ from shutil import copyfile
 import time
 import pyLib.nus3bank
 import pyLib.nus3inject
-
-# class NullWriter(object):
-    # def write(self, value): pass
-
-# if not (os.isatty(1) and os.isatty(2)):
-# sys.stdout = sys.stderr = open('log-'+unicode(time.strftime('%Y-%m-%d-%H-%M-%S'))+'-'+unicode(os.getpid())+'.txt', 'w')
-if sys.executable.endswith(u"pythonw.exe") or sys.executable.endswith(u"pythonw3.exe") or sys.executable.endswith(u"pythonw2.exe"):
-    # sys.stdout = sys.stderr = NullWriter()
-    sys.stdout = sys.stdout = None
+from pyLib.multilistbox import MultiListbox
 
 appVer = u'2.20-pre'
 appName = u"NUS3BANK Editor " + appVer    
@@ -385,7 +385,7 @@ def adaptLength(fullPath,width):
     # if len(shortPath)>maxL:
         # shortPath = shortPath[:midL]+' ... '+shortPath[-midL:]
     
-    maxPathWidth = width-10
+    maxPathWidth = width-5
     minPathWidth = 230
     if tkFont.Font().measure(shortPath) < maxPathWidth:
         return shortPath
@@ -415,7 +415,7 @@ def saveNus(newfile):
         newNusPath = asksaveasfilename(defaultextension=u'.nus3bank',initialfile=os.path.basename(nusPath),filetypes=[(u'NUS3BANK', u'.nus3bank')])#
         if newNusPath == u'':
             return
-        if os.path.abspath(nusPath) != os.path.abspath(newNusPath):
+        if os.path.realpath(nusPath) != os.path.realpath(newNusPath):
             copyfile(nusPath,newNusPath)
             nusPath=newNusPath
     for song in songs:
@@ -472,8 +472,9 @@ def openNus(newNusPath = u''):
     for song in songs:
         # song=os.path.join(folderName,line[:-1])
         # songs.append(song)
-        listbox.insert(END,os.path.basename(song))
-        listbox.itemconfig(i,background=color_l_bg[i%2])
+        songID = os.path.basename(song)[:os.path.basename(song).find(u'-')]
+        listbox.insert(END,[songID,os.path.basename(song),0,0,0])
+        # listbox.itemconfig(i,background=color_l_bg[i%2])
         i+=1
     # playlist.close()
     listbox.focus_set()
@@ -494,7 +495,8 @@ def clearWorkspace(silent=True):
         return False
     nusPath=''
     songs=[]
-    listbox.delete(0,END)
+    # listbox.delete(0,END)
+    listbox.deleteAll()
     folderName = os.path.join(n3beDir,u'tmpspace')
     if os.path.exists(folderName):
         if not os.path.isdir(folderName):
@@ -669,16 +671,20 @@ top = Tk()
 menubar = Menu(top)
 top.minsize(300,265)
 
-frame = Frame(top, bd = 0)
-yscrollbar = Scrollbar(frame, orient=VERTICAL)
-xscrollbar = Scrollbar(frame, orient=HORIZONTAL)
-listbox = Listbox(frame,width=46,bd=0,yscrollcommand=yscrollbar.set,xscrollcommand=xscrollbar.set,selectmode=EXTENDED)
-yscrollbar.config(command=listbox.yview)
-yscrollbar.pack(side=RIGHT, fill=Y)
-xscrollbar.config(command=listbox.xview)
-xscrollbar.pack(side=BOTTOM, fill=X)
-listbox.pack(fill=BOTH, padx = 10, expand=1)
-frame.pack(fill=BOTH,expand=1)
+# frame = Frame(top, bd = 0)
+# yscrollbar = Scrollbar(frame, orient=VERTICAL)
+# xscrollbar = Scrollbar(frame, orient=HORIZONTAL)
+# listbox = Listbox(frame,width=46,bd=0,yscrollcommand=yscrollbar.set,xscrollcommand=xscrollbar.set,selectmode=EXTENDED)
+# yscrollbar.config(command=listbox.yview)
+# yscrollbar.pack(side=RIGHT, fill=Y)
+# xscrollbar.config(command=listbox.xview)
+# xscrollbar.pack(side=BOTTOM, fill=X)
+# listbox.pack(fill=BOTH, padx = 10, expand=1)
+# frame.pack(fill=BOTH,expand=1)
+listbox = MultiListbox(top,['ID','IDSP name','Channels','Loop','Sample rate (Hz)'],padx=10,pady=5)
+listbox.linetags_set([u'evenrow',u'oddrow'])
+listbox.tag_configure(u'edit',foreground=color_l_change)
+listbox.tag_configure(u'oddrow',background=color_l_bg[1])
 
 # menu entries
 filemenu = Menu(menubar,tearoff=0)
@@ -711,10 +717,12 @@ filemenu.add_command(label       = u"Exit",
                      accelerator = u"Ctrl+Q")
 editmenu = Menu(menubar,tearoff=0)
 editmenu.add_command(label       = u'Select all',
-                     command     = lambda: listbox.select_set(0,END),
+                     # command     = lambda: listbox.select_set(0,END),
+                     command     = lambda: listbox.selectAll(),
                      accelerator = u'Ctrl+A')
 editmenu.add_command(label       = u'Invert selection',
-                     command     = lambda: invertSelection(listbox),
+                     # command     = lambda: invertSelection(listbox),
+                     command     = lambda: listbox.invertSelection(),
                      accelerator = u'Ctrl+I')
 editmenu.add_separator()
 editmenu.add_command(label       = u'Replace',
@@ -738,12 +746,14 @@ top.bind_all(u"<Control-w>", lambda e: clearWorkspace(False))
 top.bind_all(u'<Control-s>', lambda e: saveNus(False))
 top.bind_all(u'<Control-S>', lambda e: saveNus(True))
 top.bind_all(u'<Control-q>', lambda e: on_exit())
-top.bind_all(u'<Control-a>', lambda e: listbox.select_set(0,END))
-top.bind_all(u'<Control-i>', lambda e: invertSelection(listbox))
+# top.bind_all(u'<Control-a>', lambda e: listbox.select_set(0,END))
+top.bind_all(u'<Control-a>', lambda e: listbox.selectAll())
+# top.bind_all(u'<Control-i>', lambda e: invertSelection(listbox))
+top.bind_all(u'<Control-i>', lambda e: listbox.invertSelection())
 top.bind_all(u'<Control-r>', lambda e: replace(listbox))
 top.bind_all(u'<Control-R>', lambda e: revert(listbox))
 top.bind_all(u'<Control-p>', lambda e: openidsp(listbox))
-listbox.bind(u'<Double-1>',  lambda e: openidsp(listbox))
+listbox.set_double_click_action(lambda e: openidsp(listbox))
 listbox.bind(u'<Return>',    lambda e: openidsp(listbox))
 top.bind_all(u'<Control-P>', lambda e: openall())
 top.bind_all(u'<Control-e>', lambda e: exportidsp(listbox))
@@ -785,7 +795,8 @@ def popup(event):
         listbox.select_set(listbox.nearest(event.y))
     if len(listbox.curselection())>0:
         idspMenu.post(event.x_root,event.y_root)
-listbox.bind(u'<Button-3>',popup)
+# listbox.bind(u'<Button-3>',popup)
+listbox.set_context_menu(idspMenu)
 
 # opening file submitted on argument
 if len(sys.argv)>1:
