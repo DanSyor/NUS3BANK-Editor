@@ -415,7 +415,7 @@ def saveNus(newfile):
         newNusPath = asksaveasfilename(defaultextension=u'.nus3bank',initialfile=os.path.basename(nusPath),filetypes=[(u'NUS3BANK', u'.nus3bank')])#
         if newNusPath == u'':
             return
-        if os.path.abspath(nusPath) != os.path.abspath(newNusPath):
+        if os.path.realpath(nusPath) != os.path.realpath(newNusPath):
             copyfile(nusPath,newNusPath)
             nusPath=newNusPath
     for song in songs:
@@ -583,7 +583,7 @@ def exportidsp(l):
                     return
                     # tkMessageBox.showerror(appName,'Unicode error with:\n'+cmd)
             elif ext == '.idsp':
-                if not os.path.samepath(currentSong,output):
+                if os.path.realpath(currentSong) != os.path.realpath(output):
                     try:
                         copyfile(currentSong, output)
                     except IOError:
