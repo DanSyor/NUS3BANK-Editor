@@ -1,6 +1,6 @@
 ### Changelog:
 
-_2.20_ - 2016/06/?
+_2.20_ - 2016/07/?
  * Fixed other encoding problems for input file
  * Fixed encoding problems regarding nus3bank extraction
  * Fully ported to Python 3.5: if you still have encoding problems, consider switching
@@ -22,7 +22,7 @@ _2.13_ - 2016/06/03
  * Better algorithm for partial display of path
  * Alternates background color for tracks for better visibility
  * Various changes in how the app closes files/itself
- * Fixed encoding for errors (…)
+ * Fixed encoding for errors (â€¦)
 
 _2.12_ - 2016/06/03
  * Hotfix so that it works either like in 2.10 or in 2.11 when deleting these temporary files (previous hotfix broke it for others)
