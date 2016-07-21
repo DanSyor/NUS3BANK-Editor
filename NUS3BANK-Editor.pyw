@@ -233,8 +233,11 @@ def convert2idsp(replacementSound):
     cmd = revb + u' --build-idsp "' + idsp + u'"' + wdrevBuild
     print (cmd)
     if subprocess.call(xis.encode(cmd)):
-        tkMessageBox.showerror(appName,u'Conversion script to IDSP failed with ' + replacementSound + u'\nThe following command failed:\n' + cmd)
-        return
+        if os.path.isfile(idsp):
+            tkMessageBox.showwarning(appName,u'Conversion of ' + replacementSound + u' to IDSP ended with an error but an IDSP was created, thus this file (which may be invalid) will be used.\nThe following command failed:\n' + cmd)
+        else:
+            tkMessageBox.showerror(appName,u'Conversion script to IDSP failed with ' + replacementSound + u'\nThe following command failed:\n' + cmd)
+            return
     
     # removing tmp files
     os.remove(os.path.join(folderName,u'tmp.bak.wav'))
