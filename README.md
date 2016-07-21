@@ -25,8 +25,6 @@ Future releases will be available on [Github](https://github.com/DanSyor/NUS3BAN
 
 Last release was [2.13b](http://gbatemp.net/threads/easy-nus3bank-editor-with-gui.426370/page-8#post-6415721) with [util hotfix](http://gbatemp.net/threads/easy-nus3bank-editor-with-gui.426370/page-9#post-6416683). 
 
-You may want to check the latest pages in case any specific hotfix was posted.
-
 If you encounter any error, please provide (on the above thread or PM BlueDan on Discord) a clear and detailed explanation of what you're attempting to achive and how you do so. A screenshot of the error is highly appreciated.
 
 You may want to use NUS3BANK_Editor_troubleshooting.bat to have a better chance to screenshot any error.
