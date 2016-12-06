@@ -188,7 +188,7 @@ def convert2idsp(replacementSound):
     rate     = getBatSetVal(cmd_output,u'rate')
     tsamp = getBatSetVal(cmd_output,u'tsamp')
     lstart = 0
-    lend  = tsamp
+    lend  = tsamp-1
     hasLoop= bool(getBatSetVal(cmd_output,u'loop'))
     if hasLoop:
         lstart = getBatSetVal(cmd_output,u'lstart')
