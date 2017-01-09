@@ -16,14 +16,25 @@ Or since 2.10 you can use `NUS3BANK_Editor.bat`, that you can bind to be the def
 - everyone who tested this tool and gave feedback
 
 ### Known issues:
-* Crack noise at the end of loops (should be fixed with latest revb)
 * You might have encoding problems (some error window popping up yelling at you something about UnicodeEncodeError) related to characters within the paths of files you're using. I try my best for you to avoid those but unfortunately the behaviour doesn't seem consistent from one computer to another, making it hard for me to clearly identify what goes wrong. If you're using Python 2.7 and encounter these issues, either be careful about any potentially exotic character in the paths of your files, or consider switching to Python 3.5.
-    
+
+
+## About versions available and development
+Last public "true" release was [2.13b](http://gbatemp.net/threads/easy-nus3bank-editor-with-gui.426370/page-8#post-6415721) with [util hotfix](http://gbatemp.net/threads/easy-nus3bank-editor-with-gui.426370/page-9#post-6416683). Yet, I'd recommend 2.20-pre, so don't expect broken download links for versions anterior to it to get fixed.
+
+2.20 has never been released "for real" but you can download the [zip](https://github.com/DanSyor/NUS3BANK-Editor/archive/master.zip) for the master branch on the [main page for the Github project](https://github.com/DanSyor/NUS3BANK-Editor) for "2.20-pre" nightlies, it should be stable enough.
+
+Despite the lack of recent updates/commits, I've started a rewrite on my own some time ago so expect a major update some day, but I can't give an ETA. (next release won't be 2.20 - which will effectively never get a real release - but 3.00)
+Here are some planned features:
+- NUS3BANK creation, with only a few general files required, no injection needed (can be useful especially for music)
+- in-app player
+- true sound editor (custom loop)
+- cleaner/true injection (might fix some weird behaviors)
+- more control on nus3bank container (incl. track renaming, pointer management)
+
 ### Troubleshooting
 Be sure to grab the latest version, download links on the original [GBATemp Thread](http://gbatemp.net/threads/easy-nus3bank-editor-with-gui.426370/) may be outdated but you can still ask for help there.
-Future releases will be available on [Github](https://github.com/DanSyor/NUS3BANK-Editor/releases). 2.20 has not been released but for now you can download the [zip](https://github.com/DanSyor/NUS3BANK-Editor/archive/master.zip) for the master branch on the [main page for the Github project](https://github.com/DanSyor/NUS3BANK-Editor), it should be stable enough.
-
-Last release was [2.13b](http://gbatemp.net/threads/easy-nus3bank-editor-with-gui.426370/page-8#post-6415721) with [util hotfix](http://gbatemp.net/threads/easy-nus3bank-editor-with-gui.426370/page-9#post-6416683). 
+Future releases will be available on [Github](https://github.com/DanSyor/NUS3BANK-Editor/releases).
 
 If you encounter any error, please provide (on the above thread or PM BlueDan on Discord) a clear and detailed explanation of what you're attempting to achive and how you do so. A screenshot of the error is highly appreciated.
 
